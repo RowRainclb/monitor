@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zhizus.forest.metrics.dao.MonitorServerDao" >
+  <resultMap id="server" type="com.zhizus.forest.metrics.bean.MonitorServer" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="zookeeper_url" property="zookeeperUrl" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="VARCHAR" />
+    <result column="topic" property="topic" jdbcType="VARCHAR" />
+    <result column="server_desc" property="serverDesc" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="server_column" >
+    id, create_time, name, zookeeper_url, status, topic, server_desc
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="server" parameterType="java.lang.Long" >
+    select 
+    <include refid="server_column" />
+    from monitor_server
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <select id="selectAll" resultMap="server" >
+    select
+    <include refid="server_column" />
+    from monitor_server
+    ORDER BY create_time desc
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from monitor_server
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.zhizus.forest.metrics.bean.MonitorServer" >
+    insert into monitor_server (id, create_time, name, zookeeper_url, status, topic, server_desc
+      )
+    values (#{id,jdbcType=BIGINT}, #{createTime,jdbcType=TIMESTAMP}, #{name,jdbcType=VARCHAR},
+      #{zookeeperUrl,jdbcType=VARCHAR}, #{status,jdbcType=VARCHAR}, #{topic,jdbcType=VARCHAR}, #{serverDesc,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.zhizus.forest.metrics.bean.MonitorServer" >
+    insert into monitor_server
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="zookeeperUrl != null" >
+        zookeeper_url,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="topic != null" >
+        topic,
+      </if>
+      <if test="serverDesc != null" >
+        server_desc
+    </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="zookeeperUrl != null" >
+        #{zookeeperUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="topic != null" >
+        #{topic,jdbcType=VARCHAR},
+      </if>
+      <if test="serverDesc != null" >
+        #{serverDesc,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zhizus.forest.metrics.bean.MonitorServer" >
+    update monitor_server
+    <set >
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="zookeeperUrl != null" >
+        zookeeper_url = #{zookeeperUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="topic != null" >
+        topic = #{topic,jdbcType=VARCHAR},
+      </if>
+      <if test="serverDesc != null" >
+        desc = #{server_desc,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zhizus.forest.metrics.bean.MonitorServer" >
+    update monitor_server
+    set create_time = #{createTime,jdbcType=TIMESTAMP},
+      name = #{name,jdbcType=VARCHAR},
+      zookeeper_url = #{zookeeperUrl,jdbcType=VARCHAR},
+      status = #{status,jdbcType=VARCHAR},
+      topic = #{topic,jdbcType=VARCHAR},
+      server_desc = #{serverDesc,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

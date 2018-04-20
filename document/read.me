@@ -1,0 +1,20 @@
+1 当@Autowired找不到注解时，先检查是否扫描到了文件所在的包
+或者mybatis映射有问题
+或者mybatis的mapper文件有问题
+
+
+报错记录：
+2018年04月20日19:30:48
+问题：
+expected at least 1 bean which qualifies as autowire candidate for this depe
+问题所在：
+mybatis映射到本地bean的date字段，bean中写的localdatetime,而且没有转换
+
+保持记录：
+2018年04月20日19:49:26
+问题所在：
+mybatis中少了一个括号
+
+
+2  Java插入中文到数据库中文变成问号???解决办法
+在url后面添加参数：url=jdbc:mysql://localhost:3306/test?useUnicode=true&characterEncoding=utf8

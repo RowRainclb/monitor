@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zhizus.forest.metrics.dao.WarningRecordDao" >
+  <resultMap id="BaseResultMap" type="com.zhizus.forest.metrics.bean.WarningRecord" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="last_accept_time" property="lastAcceptTime" jdbcType="TIMESTAMP" />
+    <result column="warning_time" property="warningTime" jdbcType="TIMESTAMP" />
+    <result column="status" property="status" jdbcType="VARCHAR" />
+    <result column="deal_type" property="dealType" jdbcType="VARCHAR" />
+    <result column="message" property="message" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, last_accept_time, warning_time, status, deal_type, message
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from warning_record
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap" >
+    select
+    <include refid="Base_Column_List" />
+    from warning_record
+    ORDER BY warning_time desc
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from warning_record
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.zhizus.forest.metrics.bean.WarningRecord" >
+    insert into warning_record (id, last_accept_time, warning_time, status, deal_type, message)
+    values (#{id,jdbcType=BIGINT}, #{lastAcceptTime,jdbcType=TIMESTAMP}, #{warningTime,jdbcType=TIMESTAMP}, 
+      #{status,jdbcType=VARCHAR}, #{dealType,jdbcType=VARCHAR}, #{message,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.zhizus.forest.metrics.bean.WarningRecord" >
+    insert into warning_record
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="lastAcceptTime != null" >
+        last_accept_time,
+      </if>
+      <if test="warningTime != null" >
+        warning_time,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="dealType != null" >
+        deal_type,
+      </if>
+      <if test="message != null" >
+        message,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="lastAcceptTime != null" >
+        #{lastAcceptTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="warningTime != null" >
+        #{warningTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="dealType != null" >
+        #{dealType,jdbcType=VARCHAR},
+      </if>
+      <if test="message != null" >
+        #{message,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zhizus.forest.metrics.bean.WarningRecord" >
+    update warning_record
+    <set >
+      <if test="lastAcceptTime != null" >
+        last_accept_time = #{lastAcceptTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="warningTime != null" >
+        warning_time = #{warningTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="dealType != null" >
+        deal_type = #{dealType,jdbcType=VARCHAR},
+      </if>
+      <if test="message != null" >
+        message = #{message,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.zhizus.forest.metrics.bean.WarningRecord" >
+    update warning_record
+    set last_accept_time = #{lastAcceptTime,jdbcType=TIMESTAMP},
+      warning_time = #{warningTime,jdbcType=TIMESTAMP},
+      status = #{status,jdbcType=VARCHAR},
+      deal_type = #{dealType,jdbcType=VARCHAR},
+      message = #{message,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zhizus.forest.metrics.bean.WarningRecord" >
+    update warning_record
+    set last_accept_time = #{lastAcceptTime,jdbcType=TIMESTAMP},
+      warning_time = #{warningTime,jdbcType=TIMESTAMP},
+      status = #{status,jdbcType=VARCHAR},
+      deal_type = #{dealType,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>
